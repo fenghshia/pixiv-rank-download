@@ -20,10 +20,10 @@
 
 ### 使用
 
-第一次运行exe文件会创建 1.black_user.json 2. 3.config.json
+第一次运行exe文件会创建 1.black_user.json 2.config.json
 
-2. 黑名单.json为自动生成的,如果不知道json就不要删除里面的东西,因为目前程序还没有对黑名单进行备份的功能
-3. config.json用于保存配置信息
+1. black_user.json为黑名单保存文件,如果不知道json就不要删除里面的东西,因为目前程序还没有对黑名单进行备份的功能
+2. config.json用于保存配置信息
 
 初始化完成后就会输出菜单,常见问题下方已经写了专门的处理办法
 
