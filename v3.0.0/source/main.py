@@ -1,6 +1,10 @@
+from check import check
+
+
 class mune:
 
-    def __init__(self):
+    def __init__(self, check):
+        self.check = check
         while True:
             self.__menu()
             s = input('请输入你执行的操作的数字:')
@@ -80,7 +84,7 @@ class mune:
         if s > 4:  # 输入不存在的选项时
             print('请输入存在的选项!' * 3)
         elif s == 1:
-            print('配置目录已调整')
+            self.check.set_config()
         elif s == 2:
             print("socket配置已生效")
         elif s == 3:
@@ -90,4 +94,4 @@ class mune:
 
 
 if __name__ == '__main__':
-    mune()
+    mune(check())
