@@ -73,10 +73,9 @@ class mune:
         print('-' * 60)
         print('配置修改操作')
         print('-' * 60)
-        print('1.配置目录调整\n----修改后前面下载的数据如果迁移将无法使用classcifi下的lnk\n----如果要迁移数据请运行下面旧数据迁移选项')
+        print('1.配置目录调整')
         print(f'2.socket配置({self.__socks_state()})')
-        print('3.旧数据迁移\n----数据迁移会花费大量时间---慎重考虑!')
-        print('4.返回主菜单')
+        print('3.返回主菜单')
         print('-' * 60)
 
     def __config_operate(self):
@@ -95,8 +94,6 @@ class mune:
             print("socket配置已生效")
             sleep(3)
         elif s == 3:
-            print("数据已迁移完成")
-        elif s == 4:
             pass
 
     def __socks_state(self):

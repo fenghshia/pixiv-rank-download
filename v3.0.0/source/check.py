@@ -6,12 +6,24 @@ from datetime import datetime
 
 class check:
 
+    # 初始化标识
+    _init_flag = True
+
+    # 单例设计
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, '_instance'):
+            cls._instance = object.__new__(cls)
+        return cls._instance
+
     def __init__(self):
-        # 路径
-        self.config_path = "config/config.json"
-        self.cookie_path = "config/cookie.json"
-        self.socks_path = "config/socks.json"
-        self.__check_config()
+        if check._init_flag:
+            # 路径
+            self.config_path = "config/config.json"
+            self.cookie_path = "config/cookie.json"
+            self.socks_path = "config/socks.json"
+            self.__check_config()
+            # 修改初始化标识
+            check._init_flag = False
 
     def __check_config(self):
         # 校验文件夹存在
@@ -66,11 +78,11 @@ class check:
                 break
         with open(self.config_path, 'w', encoding='utf-8') as f:
             dump(config, f, ensure_ascii=False, indent=4)
-        self.__classify_init(dir_path)
         self.__create("dir", dir_path+"/pixiv_storage/daily_rank")
         self.__create("dir", dir_path+"/pixiv_storage/r18_rank")
         self.__create("dir", dir_path+"/pixiv_storage/artist")
         self.__create("dir", dir_path+"/blacklist")
+        self.__create("dir", dir_path+"/classify")
 
     def __check_config_dir(self, dir_path):
         if dir_path:  # 不为空
@@ -91,12 +103,8 @@ class check:
             print('你的输入为空,请重新输入')
             return False
 
-    def __classify_init(self, dir_path):
-        with open("ResNet/class_names_6000.json", "r", encoding="utf-8") as f:
-            classify_list = load(f)
-        for name in classify_list:
-            print(f"初始化分类文件目录:{name}                        ", end="\r")
-            self.__create("dir", dir_path+"/classify/"+name)
+    def get_config(self):
+        return self.__check_json(self.config_path, False)["dir"]
 
     def __cookie_init(self, need_set):
         with open(self.cookie_path, 'w', encoding='utf-8') as f:
@@ -126,6 +134,10 @@ class check:
             return True
         else:
             return False
+
+    def get_cookie(self):
+        cookie = self.__check_json(self.cookie_path, False)
+        return cookie["cookie"]
 
     def __socks_init(self, need_set):
         with open(self.socks_path, 'w', encoding='utf-8') as f:
@@ -188,3 +200,8 @@ class check:
 
     def __get_dir(self, path):
         return listdir(path)
+
+
+# if __name__ == '__main__':
+    # print(id(check()))
+    # print(id(check()))
